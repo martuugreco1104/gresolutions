@@ -75,6 +75,8 @@ export const About: FC = () => {
                             <img
                                 src="/profile.webp"
                                 alt="Santiago Greco"
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover rounded-full border-4 border-brand-dark"
                             />
                         </div>
@@ -94,6 +96,8 @@ export const About: FC = () => {
                             <img
                                 src="/Profile2.webp"
                                 alt="Martina Greco"
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover rounded-full border-4 border-brand-dark"
                             />
                         </div>
