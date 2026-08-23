@@ -59,3 +59,10 @@
 .btn-secondary-ghost:active {
   transform: translateY(0);
 }
+
+/* Optimize background rendering by applying the grid pattern only on screens >= 768px */
+.bg-grid-pattern {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), 
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+}

@@ -32,9 +32,7 @@ export const Hero: FC = () => {
 
         const particles: Particle[] = [];
 
-        // Adjust particle density based on screen size (Mobile First)
-        const isMobile = width < 768;
-        const particleCount = isMobile ? 32 : 80;
+        const particleCount = 80;
 
         // Initialize particles
         for (let i = 0; i < particleCount; i++) {
@@ -64,11 +62,16 @@ export const Hero: FC = () => {
             mouse.y = -1000;
         };
 
+        let isLooping = true;
+
         const handleResize = () => {
             if (!canvas) return;
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
-            if (window.innerWidth < 768) {
+            
+            // If the window is resized back to desktop and animation was paused, resume it
+            if (window.innerWidth >= 768 && !isLooping) {
+                isLooping = true;
                 draw();
             }
         };
@@ -79,6 +82,13 @@ export const Hero: FC = () => {
 
         // Render loop
         const draw = () => {
+            // Check dynamic viewport width on each frame to save CPU on mobile resize
+            if (window.innerWidth < 768) {
+                ctx.clearRect(0, 0, width, height);
+                isLooping = false;
+                return;
+            }
+
             ctx.clearRect(0, 0, width, height);
 
             // Draw plexus background gradient
@@ -94,10 +104,6 @@ export const Hero: FC = () => {
             bgGrad.addColorStop(1, '#04070a');
             ctx.fillStyle = bgGrad;
             ctx.fillRect(0, 0, width, height);
-
-            if (isMobile) {
-                return;
-            }
 
             // Draw particles
             for (let i = 0; i < particles.length; i++) {
@@ -138,7 +144,7 @@ export const Hero: FC = () => {
                     const dx = p1.x - p2.x;
                     const dy = p1.y - p2.y;
                     const dist = Math.hypot(dx, dy);
-                    const maxDist = isMobile ? 85 : 125;
+                    const maxDist = 125;
 
                     if (dist < maxDist) {
                         const alpha = (1 - dist / maxDist) * 0.15; // Low opacity connection
