@@ -49,7 +49,7 @@ export const Hero: FC = () => {
         const mouse = {
             x: -1000,
             y: -1000,
-            radius: isMobile ? 100 : 160, // interaction radius
+            radius: 160, // interaction radius
         };
 
         const handleMouseMove = (e: MouseEvent) => {
